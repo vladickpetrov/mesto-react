@@ -3,7 +3,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
-import PopupWithImage from "./PopupWithImage.js";
+import ImagePopup from "./ImagePopup.js";
 import api from "../utils/Api.js";
 
 function App() {
@@ -75,7 +75,7 @@ function App() {
         <PopupWithForm name='avatar' isOpened={isEditAvatarPopupOpen} title='Обновиить аватар' onClose={closeAllPopups}/>
         <PopupWithForm name='add-card' isOpened={isAddPlacePopupOpen} title='Новое место' onClose={closeAllPopups}/>
         <PopupWithForm name='profile' isOpened={isEditProfilePopupOpen} title='Редактировать профиль' onClose={closeAllPopups}/>
-        <PopupWithImage card={selectedCard} onClose={closeAllPopups}/>
+        <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
         <Footer />
     </div>
   );
