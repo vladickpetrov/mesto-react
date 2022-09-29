@@ -9,7 +9,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({ isClosed: true });
+  const [selectedCard, setSelectedCard] = useState(null);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -27,7 +27,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard({ isClosed: true });
+    setSelectedCard(null);
   }
 
   return (
@@ -66,7 +66,17 @@ function App() {
         isOpened={isEditAvatarPopupOpen}
         title="Обновиить аватар"
         onClose={closeAllPopups}
-      />
+      >
+        <input
+          className="popup__input popup__profession"
+          id="input-avatar"
+          type="url"
+          name="profession"
+          placeholder="Ссылка на аватар"
+          required
+        />
+        <span className="popup__error input-link-error"></span>
+      </PopupWithForm>
       <PopupWithForm
         name="add-card"
         isOpened={isAddPlacePopupOpen}
@@ -75,15 +85,24 @@ function App() {
       >
         <input
           className="popup__input popup__name"
-          id="input-name"
+          id="input-title"
           type="text"
           name="name"
-          placeholder="Введите имя"
-          required
-          maxLength="40"
+          placeholder="Название"
+          maxLength="30"
           minLength="2"
+          required
         />
-        <span className="popup__error input-name-error"></span>
+        <span className="popup__error input-title-error"></span>
+        <input
+          className="popup__input popup__profession"
+          id="input-link"
+          type="url"
+          name="profession"
+          placeholder="Ссылка на картинку"
+          required
+        />
+        <span className="popup__error input-link-error"></span>
       </PopupWithForm>
       <PopupWithForm
         name="profile"
@@ -102,6 +121,17 @@ function App() {
           minLength="2"
         />
         <span className="popup__error input-name-error"></span>
+        <input
+          className="popup__input popup__profession"
+          id="input-profession"
+          type="text"
+          name="profession"
+          placeholder="Введите название профессии"
+          required
+          maxLength="200"
+          minLength="2"
+        />
+        <span className="popup__error input-profession-error"></span>
       </PopupWithForm>
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       <Footer />

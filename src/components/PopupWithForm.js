@@ -21,15 +21,6 @@ function PopupWithForm(props) {
         >
           <h2 className="popup__title">{props.title}</h2>
           {props.children}
-          <input
-            className="popup__input popup__profession"
-            id="input-avatar"
-            type="url"
-            name="profession"
-            placeholder="Ссылка на аватар"
-            required
-          />
-          <span className="popup__error input-link-error"></span>
           <button className="popup__save-button" type="submit">
             Сохранить
           </button>
