@@ -64,16 +64,9 @@ export class Api {
     }).then(this._getResponseData);
   }
 
-  putLike(cardId) {
+  changeLikeCardStatus(cardId, likeStatus) {
     return fetch(`${this.link}/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: this.headers,
-    }).then(this._getResponseData);
-  }
-
-  deleteLike(cardId) {
-    return fetch(`${this.link}/cards/${cardId}/likes`, {
-      method: "DELETE",
+      method: `${likeStatus ? "DELETE" : "PUT"}`,
       headers: this.headers,
     }).then(this._getResponseData);
   }

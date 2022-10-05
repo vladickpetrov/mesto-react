@@ -12,6 +12,7 @@ function PopupWithForm(props) {
           onClick={props.onClose}
         ></button>
         <form
+          onSubmit={props.onSubmit}
           className="popup__form"
           noValidate
           method="get"

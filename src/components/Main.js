@@ -1,41 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import Card from "./Card";
-import api from "../utils/Api.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [userName, setUserName] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [cards, setCards] = useState([]);
+  const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((values) => {
-        setUserAvatar(values.avatar);
-        setUserName(values.name);
-        setUserDescription(values.about);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    api
-      .getAllPictures()
-      .then((values) => {
-        setCards(values);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const cardsElements = cards.map((item, index) => {
+  const cardsElements = props.cards.map((item, index) => {
     return (
       <li className="element__item" key={index}>
-        <Card onCardClick={props.onCardClick} card={item} />
+        <Card
+          onCardClick={props.onCardClick}
+          card={item}
+          onCardLike={props.onCardLike}
+          onCardDelete={props.onCardDelete}
+        />
       </li>
     );
   });
@@ -51,20 +29,20 @@ function Main(props) {
             ></div>
             <img
               className="profile__avatar-picture"
-              src={userAvatar}
+              src={currentUser.avatar}
               alt="Аватар пользователя"
             />
           </div>
           <div className="profile__info">
             <div className="profile__name-edit-button">
-              <h1 className="profile__name">{userName}</h1>
+              <h1 className="profile__name">{currentUser.name}</h1>
               <button
                 className="profile__edit-button clearbutton"
                 onClick={props.onEditProfile}
                 type="button"
               ></button>
             </div>
-            <p className="profile__profession">{userDescription}</p>
+            <p className="profile__profession">{currentUser.about}</p>
           </div>
         </div>
         <button
