@@ -10,6 +10,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -22,15 +23,25 @@ function App() {
     });
 
     api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      setCards((state) =>
+        state
+          .map((c) => (c._id === card._id ? newCard : c))
+          .catch((err) => {
+            console.log(err);
+          })
+      );
     });
   }
 
   function handleDeleteCard(card) {
-    api.deleteCard(card._id).then((deletedCard) => {
-      const newCards = cards.filter((c) => c._id !== card._id);
-      setCards(newCards);
-    });
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards(prevState => prevState.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   useEffect(() => {
@@ -43,8 +54,6 @@ function App() {
         console.log(err);
       });
   }, []);
-
-  const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
     api
@@ -77,21 +86,39 @@ function App() {
   }
 
   function handleUpdateAvatar(obj) {
-    api.sendAvatarPicture(obj.avatar).then((res) => {
-      setCurrentUser(res);
-    });
+    api
+      .sendAvatarPicture(obj.avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleUpdateUser(obj) {
-    api.sendUserInfo(obj.name, obj.about).then((res) => {
-      setCurrentUser(res);
-    });
+    api
+      .sendUserInfo(obj.name, obj.about)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleAddPlaceSubmit(obj) {
-    api.sendPicture(obj.pictureName, obj.pictureLink).then((res) => {
-      setCards([res, ...cards]);
-    });
+    api
+      .sendPicture(obj.pictureName, obj.pictureLink)
+      .then((res) => {
+        setCards([res, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (

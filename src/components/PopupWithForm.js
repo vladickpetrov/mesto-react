@@ -14,7 +14,6 @@ function PopupWithForm(props) {
         <form
           onSubmit={props.onSubmit}
           className="popup__form"
-          noValidate
           method="get"
           name={props.name}
           autoComplete="off"
@@ -23,7 +22,7 @@ function PopupWithForm(props) {
           <h2 className="popup__title">{props.title}</h2>
           {props.children}
           <button className="popup__save-button" type="submit">
-            Сохранить
+            {props.buttonText}
           </button>
         </form>
       </div>

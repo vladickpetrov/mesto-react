@@ -5,19 +5,6 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
 
-  const cardsElements = props.cards.map((item, index) => {
-    return (
-      <li className="element__item" key={index}>
-        <Card
-          onCardClick={props.onCardClick}
-          card={item}
-          onCardLike={props.onCardLike}
-          onCardDelete={props.onCardDelete}
-        />
-      </li>
-    );
-  });
-
   return (
     <main className="main">
       <section className="profile">
@@ -52,7 +39,20 @@ function Main(props) {
         ></button>
       </section>
       <section className="element">
-        <ul className="element__grid">{cardsElements}</ul>
+        <ul className="element__grid">
+          {props.cards.map((item) => {
+            return (
+              <li className="element__item" key={item._id}>
+                <Card
+                  onCardClick={props.onCardClick}
+                  card={item}
+                  onCardLike={props.onCardLike}
+                  onCardDelete={props.onCardDelete}
+                />
+              </li>
+            );
+          })}
+        </ul>
       </section>
     </main>
   );

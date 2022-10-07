@@ -2,7 +2,7 @@ function ImagePopup({card, onClose}) {
   return (
     <div
       className={`popup popup_image ${
-        card !== null ? "popup_opened" : ""
+        card ? "popup_opened" : ""
       }`}
     >
       <div className="popup__image-window">
@@ -13,8 +13,8 @@ function ImagePopup({card, onClose}) {
         ></button>
         <img
           className="popup__image"
-          src={card !== null ? card.link : ''}
-          alt={card !== null ? card.name : ''}
+          src={card?.link}
+          alt={card?.name}
         />
         <h3 className="popup__image-title">{card !== null ? card.name : ''}</h3>
       </div>

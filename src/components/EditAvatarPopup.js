@@ -1,8 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.value = '';
+  }, [isOpen])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,6 +18,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
   return (
     <PopupWithForm
+      buttonText='Сохранить'
       onSubmit={handleSubmit}
       isOpened={isOpen}
       onClose={onClose}
